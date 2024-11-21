@@ -39,7 +39,7 @@ class EventHandler {
           eventCount.toString() + ".",
           event.name,
           file,
-          "» 🌱 «"
+          "» ✅ «"
         );
         const execute = (...args) => event.execute(...args, client);
         client.events.set(file, {

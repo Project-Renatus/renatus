@@ -20,7 +20,7 @@ class Ready extends Event {
     setInterval(() => {
       const activitys = [
         {
-          name: `@jasonmidul`,
+          name: `Project Renatus`,
           type: ActivityType.Listening,
         },
         {
@@ -40,11 +40,15 @@ class Ready extends Event {
       await loadLanguages();
       await loadCommands(client, client.config.deploySlashOnReady);
       await loadComponents(client);
+      await client.guilds.cache.fetch();
     } catch (error) {
       logger.error(error);
     }
 
+    logger.success("===========================================================")
     logger.success(`${client.user.username}(#${client.cluster.id}) is ready!`);
+    logger.success(`Serving ${client.guilds.cache.size} guilds!`);
+    logger.success("===========================================================")
 
     try {
       await ConnectMongo(client);

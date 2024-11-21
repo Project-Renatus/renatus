@@ -49,13 +49,13 @@ class CommandHandler {
           CommandsTable.addRow(
             (i++).toString() + ".",
             command.name + "(dev)",
-            "» 🌱 «"
+            "» ✅ «"
           );
         } else {
           client.slashCommands.set(command.data.name, command);
           commandArray.push(command.data.toJSON());
           cmdCount++;
-          CommandsTable.addRow((i++).toString() + ".", command.name, "» 🌱 «");
+          CommandsTable.addRow((i++).toString() + ".", command.name, "» ✅ «");
         }
       });
     });

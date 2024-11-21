@@ -7,32 +7,23 @@ module.exports = {
   clientId: process.env.clientId,
   logChannel: process.env.logChannel,
   deploySlashOnReady: true,
-  underDevelopment: false,
+  underDevelopment: true,
   developers: [
     {
-      name: "Jason Midul",
-      id: "948807824446742568",
+      name: "Miyuki Yue",
+      id: "847761781409447947",
     },
     {
-      name: "theassassin0128",
+      name: "Wolf Yua",
       id: "720186844540567583",
     },
   ],
   devGuilds: [
     {
-      name: "Test Electro",
-      id: "1096824161403420726",
-    },
-    {
-      name: "Hopeless Fellows",
-      id: "1054284394791178291",
+      name: "idk",
+      id: "862922438182567976",
     },
   ],
-  betaTestGuilds: [
-    {
-      name: "Chapry Academy",
-      id: "1280838788591124541",
-    },
-  ],
+  betaTestGuilds: [],
   logWebhook: process.env.logWebhook,
 };
