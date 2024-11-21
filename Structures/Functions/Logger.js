@@ -1,43 +1,44 @@
-const { WebhookClient } = require("discord.js");
-const { inspect } = require("util");
-const config = require("../../config");
+const { WebhookClient } = require('discord.js')
+const config = require('../../config')
 const webhook =
   config.logWebhook.length > 0
     ? new WebhookClient({
-        url: config.logWebhook,
+        url: config.logWebhook
       })
-    : undefined;
+    : undefined
 
 class Logger {
   constructor() {
-    this.origin = this._getLogOrigin().split(/[\\/]/).pop();
+    this.origin = this._getLogOrigin().split(/[\\/]/).pop()
   }
   _getLogOrigin() {
-    let filename;
+    let filename
 
-    let _pst = Error.prepareStackTrace;
+    let _pst = Error.prepareStackTrace
     Error.prepareStackTrace = function (err, stack) {
-      return stack;
-    };
+      return stack
+    }
     try {
-      let err = new Error();
-      let callerfile;
-      let currentfile;
+      let err = new Error()
+      let callerfile
+      let currentfile
 
-      currentfile = err.stack.shift().getFileName();
+      currentfile = err.stack.shift().getFileName()
 
       while (err.stack.length) {
-        callerfile = err.stack.shift().getFileName();
+        callerfile = err.stack.shift().getFileName()
 
         if (currentfile !== callerfile) {
-          filename = callerfile;
-          break;
+          filename = callerfile
+          break
         }
       }
-    } catch (err) {}
-    Error.prepareStackTrace = _pst;
+    } catch (err) {
+      console.error(err)
+    }
+    Error.prepareStackTrace = _pst
 
-    return filename;
+    return filename
   }
 
   error(content) {
@@ -46,19 +47,19 @@ class Logger {
       `  🛑  [` +
       `${
         this.origin.length > 25
-          ? this.origin.substring(0, 17) + "..."
+          ? this.origin.substring(0, 17) + '...'
           : this.origin
       }` +
       `] ` +
-      " ".repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
-      "| " +
-      content;
+      ' '.repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
+      '| ' +
+      content
     if (webhook) {
       webhook.send({
-        content: `> \`\`\`${output}\`\`\``,
-      });
+        content: `> \`\`\`${output}\`\`\``
+      })
     }
-    console.log(output);
+    console.log(output)
   }
 
   info(content) {
@@ -67,19 +68,19 @@ class Logger {
       `  ✉️   [` +
       `${
         this.origin.length > 25
-          ? this.origin.substring(0, 17) + "..."
+          ? this.origin.substring(0, 17) + '...'
           : this.origin
       }` +
       `] ` +
-      " ".repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
-      "| " +
-      content;
+      ' '.repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
+      '| ' +
+      content
     if (webhook) {
       webhook.send({
-        content: `> \`\`\`${output}\`\`\``,
-      });
+        content: `> \`\`\`${output}\`\`\``
+      })
     }
-    console.log(output);
+    console.log(output)
   }
   warn(content) {
     const output =
@@ -87,19 +88,19 @@ class Logger {
       `  ⚠️   [` +
       `${
         this.origin.length > 25
-          ? this.origin.substring(0, 17) + "..."
+          ? this.origin.substring(0, 17) + '...'
           : this.origin
       }` +
       `] ` +
-      " ".repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
-      "| " +
-      content;
+      ' '.repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
+      '| ' +
+      content
     if (webhook) {
       webhook.send({
-        content: `> \`\`\`${output}\`\`\``,
-      });
+        content: `> \`\`\`${output}\`\`\``
+      })
     }
-    console.log(output);
+    console.log(output)
   }
 
   success(content) {
@@ -108,19 +109,19 @@ class Logger {
       `  ✅  [` +
       `${
         this.origin.length > 25
-          ? this.origin.substring(0, 17) + "..."
+          ? this.origin.substring(0, 17) + '...'
           : this.origin
       }` +
       `] ` +
-      " ".repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
-      "| " +
-      content;
+      ' '.repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
+      '| ' +
+      content
     if (webhook) {
       webhook.send({
-        content: `> \`\`\`${output}\`\`\``,
-      });
+        content: `> \`\`\`${output}\`\`\``
+      })
     }
-    console.log(output);
+    console.log(output)
   }
   custom(content) {
     console.log(
@@ -128,15 +129,15 @@ class Logger {
         `  🛑  [` +
         `${
           this.origin.length > 20
-            ? this.origin.substring(0, 17) + "..."
+            ? this.origin.substring(0, 17) + '...'
             : this.origin
         }` +
         `] ` +
-        " ".repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
-        "| " +
+        ' '.repeat(20 - (this.origin.length > 20 ? 20 : this.origin.length)) +
+        '| ' +
         content
-    );
+    )
   }
 }
 
-module.exports = { Logger };
+module.exports = { Logger }

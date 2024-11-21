@@ -1,64 +1,64 @@
-const Command = require("../../../Structures/Classes/BaseCommand");
+const Command = require('../../../Structures/Classes/BaseCommand')
 const {
-  CommandHandler,
-} = require("../../../Structures/Handlers/CommandHandler");
+  CommandHandler
+} = require('../../../Structures/Handlers/CommandHandler')
 const {
-  ComponentHandler,
-} = require("../../../Structures/Handlers/ComponentHandler");
-const { EventHandler } = require("../../../Structures/Handlers/EventHandler");
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
-const { Logger } = require("../../../Structures/Functions/index");
-const logger = new Logger();
+  ComponentHandler
+} = require('../../../Structures/Handlers/ComponentHandler')
+const { EventHandler } = require('../../../Structures/Handlers/EventHandler')
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js')
+const { Logger } = require('../../../Structures/Functions/index')
+const logger = new Logger()
 
 class Reload extends Command {
   constructor(client, dir) {
     super(client, dir, {
       data: new SlashCommandBuilder()
-        .setName("reload")
-        .setDescription("Reload commands/events!")
+        .setName('reload')
+        .setDescription('Reload commands/events!')
         .setDescriptionLocalizations({
-          "zh-TW": "重新載入指令/事件",
+          'zh-TW': '重新載入指令/事件'
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((subCommand) =>
           subCommand
-            .setName("events")
-            .setDescription("Reload all events.")
+            .setName('events')
+            .setDescription('Reload all events.')
             .setDescriptionLocalizations({
-              "zh-TW": "重新載入事件",
+              'zh-TW': '重新載入事件'
             })
         )
         .addSubcommand((subCommand) =>
           subCommand
-            .setName("component")
-            .setDescription("Reload all components.")
+            .setName('component')
+            .setDescription('Reload all components.')
             .setDescriptionLocalizations({
-              "zh-TW": "重新載入組件",
+              'zh-TW': '重新載入組件'
             })
         )
         .addSubcommand((subCommand) =>
           subCommand
-            .setName("commands")
-            .setDescription("Reload/register all slash commands.")
+            .setName('commands')
+            .setDescription('Reload/register all slash commands.')
             .setDescriptionLocalizations({
-              "zh-TW": "重新載入指令",
+              'zh-TW': '重新載入指令'
             })
             .addStringOption((option) =>
               option
-                .setName("deploy-slash")
+                .setName('deploy-slash')
                 .setDescription("By default it's (false)")
                 .setRequired(false)
                 .addChoices(
-                  { name: "true", value: "true" },
-                  { name: "false", value: "false" }
+                  { name: 'true', value: 'true' },
+                  { name: 'false', value: 'false' }
                 )
             )
         ),
       options: {
-        devOnly: true,
-      },
-    });
+        devOnly: true
+      }
+    })
   }
   /**
    *
@@ -66,51 +66,52 @@ class Reload extends Command {
    * @param {import("../../../Structures/Classes/BotClient").BotClient} client
    */
   async execute(interaction, client) {
-    const subCmd = interaction.options.getSubcommand();
+    const subCmd = interaction.options.getSubcommand()
     switch (subCmd) {
-      case "commands":
+      case 'commands':
         try {
           const isDeploySlash =
-            interaction.options.getString("deploy-slash") || false;
-          const { loadCommands } = new CommandHandler();
-          await loadCommands(client, isDeploySlash);
+            interaction.options.getString('deploy-slash') || false
+          const { loadCommands } = new CommandHandler()
+          await loadCommands(client, isDeploySlash)
           interaction.reply({
             content: `All commands has been reloaded. \nAnd deploy slash was \`${isDeploySlash}\``,
-            ephemeral: true,
-          });
+            ephemeral: true
+          })
         } catch (error) {
-          logger.error(error);
+          logger.error(error)
         }
-        break;
-      case "component":
+        break
+      case 'component':
         try {
-          const { loadComponents } = new ComponentHandler();
-          await loadComponents(client);
+          const { loadComponents } = new ComponentHandler()
+          await loadComponents(client)
           interaction.reply({
             content: `All components has been reloaded.`,
-            ephemeral: true,
-          });
+            ephemeral: true
+          })
         } catch (error) {
-          logger.error(error);
+          logger.error(error)
         }
-        break;
-      case "events":
+        break
+      case 'events':
         try {
-          for (const [key, value] of client.events)
-            client.removeListener(value.name, value.execute);
-          const { loadEvents } = new EventHandler();
-          await loadEvents(client);
+          for (const [key, value] of client.events) // eslint-disable-line no-unused-vars
+            client.removeListener(value.name, value.execute)
+          const { loadEvents } = new EventHandler()
+          await loadEvents(client)
           interaction.reply({
             content: `All events has been reloaded.`,
-            ephemeral: true,
-          });
+            ephemeral: true
+          })
         } catch (error) {
-          logger.error(error);
+          logger.error(error)
         }
+        break
       default:
-        break;
+        break
     }
   }
 }
 
-module.exports = Reload;
+module.exports = Reload

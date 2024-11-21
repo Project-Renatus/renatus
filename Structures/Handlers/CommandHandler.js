@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-const AsciiTable = require("ascii-table");
-const { Logger } = require("../Functions/index");
-const logger = new Logger();
+const fs = require('fs')
+const path = require('path')
+const AsciiTable = require('ascii-table')
+const { Logger } = require('../Functions/index')
+const logger = new Logger()
 
 class CommandHandler {
   constructor() {}
@@ -13,79 +13,81 @@ class CommandHandler {
    */
   async loadCommands(client, update) {
     const commandPath = fs.readdirSync(
-      path.join(__dirname, "../../Interactions/SlashCommands")
-    );
+      path.join(__dirname, '../../Interactions/SlashCommands')
+    )
     const CommandsTable = new AsciiTable()
       .setHeading(
-        "⠀⠀⠀⠀",
-        "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Slash Command⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-        "⠀⠀Status⠀⠀"
+        '⠀⠀⠀⠀',
+        '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Slash Command⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+        '⠀⠀Status⠀⠀'
       )
-      .setBorder("┋", "═", "●", "●")
-      .setAlign(2, AsciiTable.CENTER);
+      .setBorder('┋', '═', '●', '●')
+      .setAlign(2, AsciiTable.CENTER)
 
-    await client.slashCommands.clear();
-    let commandArray = [];
-    let devCommandArray = [];
-    let devCmdCount = 0;
-    let cmdCount = 0;
-    let i = 1;
+    await client.slashCommands.clear()
+    let commandArray = []
+    let devCommandArray = []
+    let devCmdCount = 0
+    let cmdCount = 0
+    let i = 1
 
     commandPath.forEach((dir) => {
       const commandFolder = fs
         .readdirSync(
           path.join(__dirname, `../../Interactions/SlashCommands/${dir}`)
         )
-        .filter((file) => file.endsWith(".js"));
+        .filter((file) => file.endsWith('.js'))
 
       commandFolder.forEach(async (file) => {
-        const commandFile = require(`../../Interactions/SlashCommands/${dir}/${file}`);
-        const command = new commandFile(client, dir);
+        const commandFile = require(
+          `../../Interactions/SlashCommands/${dir}/${file}`
+        )
+        const command = new commandFile(client, dir)
 
-        if (dir == "Dev") {
-          client.slashCommands.set(command.data.name, command);
-          devCommandArray.push(command.data.toJSON());
-          devCmdCount++;
+        if (dir == 'Dev') {
+          client.slashCommands.set(command.data.name, command)
+          devCommandArray.push(command.data.toJSON())
+          devCmdCount++
           CommandsTable.addRow(
-            (i++).toString() + ".",
-            command.name + "(dev)",
-            "» ✅ «"
-          );
+            (i++).toString() + '.',
+            command.name + '(dev)',
+            '» ✅ «'
+          )
         } else {
-          client.slashCommands.set(command.data.name, command);
-          commandArray.push(command.data.toJSON());
-          cmdCount++;
-          CommandsTable.addRow((i++).toString() + ".", command.name, "» ✅ «");
+          client.slashCommands.set(command.data.name, command)
+          commandArray.push(command.data.toJSON())
+          cmdCount++
+          CommandsTable.addRow((i++).toString() + '.', command.name, '» ✅ «')
         }
-      });
-    });
-    console.log(CommandsTable.toString());
-    logger.info(`</> • ${cmdCount} Slash commands has been loaded.`);
-    logger.info(`</> • ${devCmdCount} Developer commands has been loaded.`);
+      })
+    })
+    console.log(CommandsTable.toString())
+    logger.info(`</> • ${cmdCount} Slash commands has been loaded.`)
+    logger.info(`</> • ${devCmdCount} Developer commands has been loaded.`)
 
     if (update) {
       await (async () => {
         try {
-          await client.application.commands.set(commandArray);
+          await client.application.commands.set(commandArray)
           logger.success(
             `</> • ${cmdCount} Slash commands has been registered globally.`
-          );
+          )
           client.config.devGuilds.forEach(async (devGuild) => {
-            const guild = client.guilds.cache.get(devGuild.id);
+            const guild = client.guilds.cache.get(devGuild.id)
 
             if (guild) {
-              guild.commands.set(devCommandArray);
+              guild.commands.set(devCommandArray)
               logger.warn(
                 `</> • Dev Commands registered for guild "${devGuild.name}"`
-              );
+              )
             }
-          });
+          })
         } catch (error) {
-          logger.error(error);
+          logger.error(error)
         }
-      })();
+      })()
     }
   }
 }
 
-module.exports = { CommandHandler };
+module.exports = { CommandHandler }

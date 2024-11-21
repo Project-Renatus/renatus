@@ -1,9 +1,9 @@
 module.exports = function guildFind(id, ids) {
-  let match;
+  let match
   ids.forEach(async (guild) => {
     if (id == guild.id) {
-      match = true;
+      match = true
     }
-  });
-  return match;
-};
+  })
+  return match
+}

@@ -1,25 +1,25 @@
-const Command = require("../../../Structures/Classes/BaseCommand");
+const Command = require('../../../Structures/Classes/BaseCommand')
 const {
   SlashCommandBuilder,
   ActionRowBuilder,
   ButtonBuilder,
-  ButtonStyle,
-} = require("discord.js");
+  ButtonStyle
+} = require('discord.js')
 
 class Ping extends Command {
   constructor(client, dir) {
     super(client, dir, {
       data: new SlashCommandBuilder()
-        .setName("button")
-        .setDescription("Get the button.")
+        .setName('button')
+        .setDescription('Get the button.')
         .setDescriptionLocalizations({
-          'zh-TW': '獲取按鈕',
+          'zh-TW': '獲取按鈕'
         })
         .setDMPermission(false),
       options: {
         //  devOnly: false,
-      },
-    });
+      }
+    })
   }
   /**
    *
@@ -27,18 +27,18 @@ class Ping extends Command {
    */
   async execute(interaction) {
     const confirm = new ButtonBuilder()
-      .setCustomId("but1")
-      .setLabel("But1")
-      .setStyle(ButtonStyle.Danger);
+      .setCustomId('but1')
+      .setLabel('But1')
+      .setStyle(ButtonStyle.Danger)
 
     const cancel = new ButtonBuilder()
-      .setCustomId("but2")
-      .setLabel("But2")
-      .setStyle(ButtonStyle.Secondary);
+      .setCustomId('but2')
+      .setLabel('But2')
+      .setStyle(ButtonStyle.Secondary)
 
-    const row = new ActionRowBuilder().addComponents(cancel, confirm);
-    interaction.reply({ content: "Here is your button!", components: [row] });
+    const row = new ActionRowBuilder().addComponents(cancel, confirm)
+    interaction.reply({ content: 'Here is your button!', components: [row] })
   }
 }
 
-module.exports = Ping;
+module.exports = Ping

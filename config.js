@@ -1,5 +1,5 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require('dotenv')
+dotenv.config()
 
 module.exports = {
   botToken: process.env.token,
@@ -10,20 +10,20 @@ module.exports = {
   underDevelopment: true,
   developers: [
     {
-      name: "Miyuki Yue",
-      id: "847761781409447947",
+      name: 'Miyuki Yue',
+      id: '847761781409447947'
     },
     {
-      name: "Wolf Yua",
-      id: "720186844540567583",
-    },
+      name: 'Wolf Yua',
+      id: '720186844540567583'
+    }
   ],
   devGuilds: [
     {
-      name: "idk",
-      id: "862922438182567976",
-    },
+      name: 'idk',
+      id: '862922438182567976'
+    }
   ],
   betaTestGuilds: [],
-  logWebhook: process.env.logWebhook,
-};
+  logWebhook: process.env.logWebhook
+}

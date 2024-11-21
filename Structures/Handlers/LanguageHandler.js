@@ -1,14 +1,14 @@
-const i18next = require("i18next");
-const resources = require("../../locales/resources");
+const i18next = require('i18next')
+const resources = require('../../locales/resources')
 
 function loadLanguages() {
   i18next.init({
-    fallbackLng: "en",
-    defaultNS: "system",
+    fallbackLng: 'en',
+    defaultNS: 'system',
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
-    resources,
-  });
+    resources
+  })
 }
-module.exports = { loadLanguages };
+module.exports = { loadLanguages }

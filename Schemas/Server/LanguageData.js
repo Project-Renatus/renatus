@@ -1,14 +1,14 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 const languageData = new Schema({
   guildId: {
     type: String,
-    required: true,
+    required: true
   },
   lng: {
     type: String,
-    default: "en",
-  },
-});
+    default: 'en'
+  }
+})
 
-module.exports = model("LanguageData", languageData);
+module.exports = model('LanguageData', languageData)

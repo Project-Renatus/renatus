@@ -1,18 +1,18 @@
-const { ClusterManager, ReClusterManager } = require("discord-hybrid-sharding");
-const { botToken } = require("./config");
-const manager = new ClusterManager("./bot.js", {
+const { ClusterManager } = require('discord-hybrid-sharding')
+const { botToken } = require('./config')
+const manager = new ClusterManager('./bot.js', {
   token: botToken,
-  totalShards: "auto",
+  totalShards: 'auto',
   shardsPerClusters: 2,
-  totalClusters: "auto",
-  mode: "process",
-});
+  totalClusters: 'auto',
+  mode: 'process'
+})
 
-console.clear();
-manager.on("clusterCreate", (cluster) =>
+console.clear()
+manager.on('clusterCreate', (cluster) =>
   console.log(`Cluster launched : ${cluster.id}`)
-);
-manager.on("clusterDestroy", (cluster) =>
+)
+manager.on('clusterDestroy', (cluster) =>
   console.log(`Cluster destroyed : ${cluster.id}`)
-);
-manager.spawn();
+)
+manager.spawn()

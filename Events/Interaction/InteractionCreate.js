@@ -1,53 +1,51 @@
-const Event = require("../../Structures/Classes/BaseEvent");
-const { jsonFind, Logger } = require("../../Structures/Functions/index");
-const {
-  languageDatas,
-} = require("../../Schemas/index.js");
-const { Events, InteractionType } = require("discord.js");
-const logger = new Logger();
-const { t } = require("i18next");
+const Event = require('../../Structures/Classes/BaseEvent')
+const { jsonFind, Logger } = require('../../Structures/Functions/index')
+const { languageDatas } = require('../../Schemas/index.js')
+const { Events, InteractionType } = require('discord.js')
+const logger = new Logger()
+const { t } = require('i18next')
 
 class InteractionCreate extends Event {
   constructor(client) {
     super(client, {
-      name: Events.InteractionCreate,
-    });
+      name: Events.InteractionCreate
+    })
   }
   /**
    *
    * @param {import("discord.js").ChatInputCommandInteraction} interaction
    */
   async execute(interaction) {
-    const { client } = this;
-    if (interaction.type !== InteractionType.ApplicationCommand) return;
+    const { client } = this
+    if (interaction.type !== InteractionType.ApplicationCommand) return
 
-    const command = client.slashCommands.get(interaction.commandName);
-    if (!command) return;
+    const command = client.slashCommands.get(interaction.commandName)
+    if (!command) return
     let languageData = await languageDatas.findOne({
-      guildId: interaction.guildId,
-    });
+      guildId: interaction.guildId
+    })
     if (!languageData && interaction.guildId !== null) {
       await languageDatas.create({
         guildId: interaction.guildId,
-        lng: "en",
-      });
+        lng: 'en'
+      })
       languageData = await languageDatas.findOne({
-        guildId: interaction.guildId,
-      });
+        guildId: interaction.guildId
+      })
     }
-    const lng = interaction.guildId == null ? "en" : languageData.lng;
+    const lng = interaction.guildId == null ? 'en' : languageData.lng
 
     if (
       command.options?.devOnly &&
       !jsonFind(interaction.user.id, client.config.developers)
     ) {
       return await interaction.reply({
-        content: t("event.command.devOnly", {
+        content: t('event.command.devOnly', {
           lng,
-          client: client.user.username,
+          client: client.user.username
         }),
-        ephemeral: true,
-      });
+        ephemeral: true
+      })
     }
 
     if (
@@ -56,28 +54,28 @@ class InteractionCreate extends Event {
       !jsonFind(interaction.guild, client.config.betaTestGuilds)
     ) {
       return await interaction.reply({
-        content: t("event.command.underDev", { lng }),
-        ephemeral: true,
-      });
+        content: t('event.command.underDev', { lng }),
+        ephemeral: true
+      })
     }
-    
+
     try {
-      await command.execute(interaction, client, lng);
+      await command.execute(interaction, client, lng)
     } catch (error) {
-      logger.error(error);
+      logger.error(error)
       if (interaction.replied) {
         await interaction.editReply({
-          content: t("event.command.fail", { lng }),
-          ephemeral: true,
-        });
+          content: t('event.command.fail', { lng }),
+          ephemeral: true
+        })
       } else {
         await interaction.reply({
-          content: t("event.command.fail", { lng }),
-          ephemeral: true,
-        });
+          content: t('event.command.fail', { lng }),
+          ephemeral: true
+        })
       }
     }
   }
 }
 
-module.exports = InteractionCreate;
+module.exports = InteractionCreate
