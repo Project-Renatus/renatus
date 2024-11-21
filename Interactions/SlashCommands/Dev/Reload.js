@@ -17,22 +17,33 @@ class Reload extends Command {
         .setName("reload")
         .setDescription("Reload commands/events!")
         .setDescriptionLocalizations({
-          'zh-TW': "重新載入指令/事件",
+          "zh-TW": "重新載入指令/事件",
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((subCommand) =>
-          subCommand.setName("events").setDescription("Reload all events.")
+          subCommand
+            .setName("events")
+            .setDescription("Reload all events.")
+            .setDescriptionLocalizations({
+              "zh-TW": "重新載入事件",
+            })
         )
         .addSubcommand((subCommand) =>
           subCommand
             .setName("component")
             .setDescription("Reload all components.")
+            .setDescriptionLocalizations({
+              "zh-TW": "重新載入組件",
+            })
         )
         .addSubcommand((subCommand) =>
           subCommand
             .setName("commands")
             .setDescription("Reload/register all slash commands.")
+            .setDescriptionLocalizations({
+              "zh-TW": "重新載入指令",
+            })
             .addStringOption((option) =>
               option
                 .setName("deploy-slash")
