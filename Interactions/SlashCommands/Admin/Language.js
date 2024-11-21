@@ -8,6 +8,9 @@ class Language extends Command {
       data: new SlashCommandBuilder()
         .setName("language")
         .setDescription("Set a language for this server.")
+        .setDescriptionLocalizations({
+          zh-tw: '設置此伺服器的語言',
+        })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption((option) =>

@@ -11,6 +11,9 @@ class Eval extends Command {
       data: new SlashCommandBuilder()
         .setName("eval")
         .setDescription("Eval a code.")
+        .setDescriptionLocalizations({
+          zh: "執行代碼",
+        })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption((option) =>

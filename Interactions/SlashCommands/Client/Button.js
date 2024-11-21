@@ -12,6 +12,9 @@ class Ping extends Command {
       data: new SlashCommandBuilder()
         .setName("button")
         .setDescription("Get the button.")
+        .setDescriptionLocalizations({
+          zh-tw: '獲取按鈕',
+        })
         .setDMPermission(false),
       options: {
         //  devOnly: false,

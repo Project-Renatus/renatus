@@ -8,6 +8,9 @@ class Ping extends Command {
       data: new SlashCommandBuilder()
         .setName("ping")
         .setDescription("To check bot ping!")
+        .setDescriptionLocalizations({
+          zh: "檢查機器人延遲",
+        })
         .setDMPermission(false),
       options: {
         //  devOnly: false,

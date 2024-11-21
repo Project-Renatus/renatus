@@ -7,7 +7,10 @@ class Help extends Command {
     super(client, dir, {
       data: new SlashCommandBuilder()
         .setName("help")
-        .setDescription("help command"),
+        .setDescription("help command")
+        .setDescriptionLocalizations({
+          zh-tw: '幫助',
+        }),
     });
   }
 

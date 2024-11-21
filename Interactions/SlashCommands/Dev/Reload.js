@@ -16,6 +16,9 @@ class Reload extends Command {
       data: new SlashCommandBuilder()
         .setName("reload")
         .setDescription("Reload commands/events!")
+        .setDescriptionLocalizations({
+          zh: "重新載入指令/事件",
+        })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((subCommand) =>
