@@ -40,7 +40,6 @@ class Ready extends Event {
       await loadLanguages();
       await loadCommands(client, client.config.deploySlashOnReady);
       await loadComponents(client);
-      await client.guilds.cache.fetch();
     } catch (error) {
       logger.error(error);
     }

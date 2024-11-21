@@ -14,7 +14,6 @@ class Ping extends Command {
         .setDescription("Get the button.")
         .setDMPermission(false),
       options: {
-        //  premium: true,
         //  devOnly: false,
       },
     });

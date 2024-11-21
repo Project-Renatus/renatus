@@ -10,8 +10,6 @@ class Ping extends Command {
         .setDescription("To check bot ping!")
         .setDMPermission(false),
       options: {
-        //  premiumGuild: true,
-        //  premiumUser: true,
         //  devOnly: false,
       },
     });

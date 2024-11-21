@@ -1,8 +1,6 @@
 const Event = require("../../Structures/Classes/BaseEvent");
 const { jsonFind, Logger } = require("../../Structures/Functions/index");
 const {
-  premiumDatas,
-  userPremiumDatas,
   languageDatas,
 } = require("../../Schemas/index.js");
 const { Events, InteractionType } = require("discord.js");
@@ -62,55 +60,7 @@ class InteractionCreate extends Event {
         ephemeral: true,
       });
     }
-    if (command.options?.premiumUser) {
-      const premiumData = await userPremiumDatas.findOne({
-        userId: interaction.user.id,
-      });
-      if (!premiumData) {
-        return interaction.reply({
-          content: t("event.command.userPremium", { lng }),
-          ephemeral: true,
-        });
-      }
-      if (premiumData.redeemAt + premiumData.duration <= Date.now()) {
-        interaction.reply({
-          content: t("event.command.userPremiumEnd", {
-            lng,
-            duration: parseInt(
-              `${(premiumData.redeemAt + premiumData.duration) / 1000}`
-            ),
-          }),
-        });
-        return await userPremiumDatas.findOneAndDelete({
-          userId: interaction.user.id,
-        });
-      }
-    }
-    if (command.options?.premiumGuild) {
-      const premiumData = await premiumDatas.findOne({
-        guildId: interaction.guildId,
-      });
-      if (!premiumData) {
-        return interaction.reply({
-          content: t("event.command.guildPremium", { lng }),
-          ephemeral: true,
-        });
-      }
-      if (premiumData.redeemAt + premiumData.duration <= Date.now()) {
-        interaction.reply({
-          content: t("event.command.guildPremiumEnd", {
-            lng,
-            duration: parseInt(
-              `${(premiumData.redeemAt + premiumData.duration) / 1000}`
-            ),
-          }),
-        });
-        return await premiumDatas.findOneAndDelete({
-          guildId: interaction.guildId,
-        });
-      }
-    }
-
+    
     try {
       await command.execute(interaction, client, lng);
     } catch (error) {

@@ -2,12 +2,6 @@
     "language": {
         "success": "> Hey <@{{user}}>, I've successfully updated my language settings to {{data}}!"
     },
-    "redeem": {
-        "modal": {
-            "placeholder": "Enter your premium code here!",
-            "title": "Redeem Your Premium Access"
-        }
-    },
     "ping": {
         "reply": "> Pong! Hold on a moment while I check...",
         "embed": {
