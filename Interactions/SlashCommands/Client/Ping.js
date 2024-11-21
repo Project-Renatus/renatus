@@ -9,7 +9,7 @@ class Ping extends Command {
         .setName("ping")
         .setDescription("To check bot ping!")
         .setDescriptionLocalizations({
-          zh: "檢查機器人延遲",
+          'zh-TW': "檢查機器人延遲",
         })
         .setDMPermission(false),
       options: {

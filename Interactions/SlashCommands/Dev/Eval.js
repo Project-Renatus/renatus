@@ -12,7 +12,7 @@ class Eval extends Command {
         .setName("eval")
         .setDescription("Eval a code.")
         .setDescriptionLocalizations({
-          zh: "執行代碼",
+          'zh-TW': "執行代碼",
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)

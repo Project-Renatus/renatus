@@ -9,7 +9,7 @@ class Help extends Command {
         .setName("help")
         .setDescription("help command")
         .setDescriptionLocalizations({
-          zh-tw: '幫助',
+          'zh-TW': '幫助',
         }),
     });
   }

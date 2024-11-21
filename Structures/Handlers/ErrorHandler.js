@@ -16,6 +16,7 @@ const webhook =
 async function ClientErrorHandler(client) {
   client.on("error", (err) => {
     logger.custom(`${err}`);
+    console.log(err)
 
     if (webhook) {
       return webhook.send({
@@ -31,6 +32,7 @@ async function ErrorHandler() {
 
   process.on("unhandledRejection", (reason, promise) => {
     logger.custom(`${reason}`);
+    console.log(reason)
 
     if (webhook) {
       webhook.send({
@@ -53,6 +55,7 @@ async function ErrorHandler() {
 
   process.on("uncaughtException", (err, origin) => {
     logger.custom(`${err}`);
+    console.log(err)
 
     if (webhook) {
       webhook.send({
@@ -75,6 +78,7 @@ async function ErrorHandler() {
 
   process.on("uncaughtExceptionMonitor", (err, origin) => {
     logger.custom(`${err}`);
+    console.log(err)
 
     if (webhook) {
       webhook.send({
@@ -97,6 +101,7 @@ async function ErrorHandler() {
 
   process.on("warning", (warn) => {
     logger.custom(`${warn}`);
+    console.log(warn)
 
     if (webhook) {
       webhook.send({

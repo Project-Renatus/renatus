@@ -9,7 +9,7 @@ class Language extends Command {
         .setName("language")
         .setDescription("Set a language for this server.")
         .setDescriptionLocalizations({
-          zh-tw: '設置此伺服器的語言',
+          'zh-TW': '設置此伺服器的語言',
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
