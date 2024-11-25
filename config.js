@@ -5,7 +5,6 @@ module.exports = {
   botToken: process.env.token,
   mongoUrl: process.env.mongoUrl,
   clientId: process.env.clientId,
-  logChannel: process.env.logChannel,
   deploySlashOnReady: true,
   underDevelopment: true,
   developers: [
@@ -14,7 +13,7 @@ module.exports = {
       id: '847761781409447947'
     },
     {
-      name: 'Wolf Yua',
+      name: 'Wolf Yuan',
       id: '720186844540567583'
     }
   ],
