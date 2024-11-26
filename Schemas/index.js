@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const botDatas = require('./Bot/BotDatas')
 const languageDatas = require('./Server/LanguageData')
 const DynamicChannel = require('./Bot/DynamicChannel')
+const UserXPData = require('./Users/UserXPData')
 const { Logger } = require('../Structures/Functions/index')
 
 const logger = new Logger()
@@ -31,5 +32,6 @@ module.exports = {
   ConnectMongo,
   botDatas,
   languageDatas,
-  DynamicChannel
+  DynamicChannel,
+  UserXPData
 }
