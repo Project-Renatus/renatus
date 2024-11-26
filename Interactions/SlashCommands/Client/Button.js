@@ -16,10 +16,6 @@ class Ping extends Command {
           'zh-TW': '獲取按鈕',
           'en-US': 'Get the button.'
         })
-        .setDMPermission(false),
-      options: {
-        //  devOnly: false,
-      }
     })
   }
   /**

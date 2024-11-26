@@ -26,6 +26,10 @@ class Help extends Command {
     let clientCmd = []
     let infoCmd = []
     let othersCmd = []
+    let cityCmd = []
+    let dvcCmd = []
+    let xpCmd = []
+    let musicCmd = []
 
     let lng = interaction.locale
 
@@ -45,6 +49,42 @@ class Help extends Command {
             if (subCmd.length !== 0) adminCmd.push(...subCmd)
             else
               adminCmd.push({
+                name: `</${command.name}:${command.id}>`,
+                value: command.descriptionLocalizations[lng],
+                inline: true
+              })
+            break
+          case 'Music':
+              if (subCmd.length !== 0) musicCmd.push(...subCmd)
+              else
+                musicCmd.push({
+                  name: `</${command.name}:${command.id}>`,
+                  value: command.descriptionLocalizations[lng],
+                  inline: true
+                })
+              break
+          case 'City':
+            if (subCmd.length !== 0) cityCmd.push(...subCmd)
+            else
+              cityCmd.push({
+                name: `</${command.name}:${command.id}>`,
+                value: command.descriptionLocalizations[lng],
+                inline: true
+              })
+            break
+          case 'Dvc':
+            if (subCmd.length !== 0) dvcCmd.push(...subCmd)
+            else
+              dvcCmd.push({
+                name: `</${command.name}:${command.id}>`,
+                value: command.descriptionLocalizations[lng],
+                inline: true
+              })
+            break
+          case 'XP':
+            if (subCmd.length !== 0) xpCmd.push(...subCmd)
+            else
+              xpCmd.push({
                 name: `</${command.name}:${command.id}>`,
                 value: command.descriptionLocalizations[lng],
                 inline: true
@@ -90,6 +130,10 @@ class Help extends Command {
     const clientCmdL = t('command:help.clientCommands', { lng })
     const adminCmdL = t('command:help.adminCommands', { lng })
     const othersCmdL = t('command:help.otherCommands', { lng })
+    const cityCmdL = t('command:help.cityCommands', { lng })
+    const dvcCmdL = t('command:help.dvcCommands', { lng })
+    const xpCmdL = t('command:help.xpCommands', { lng })
+    const musicCmdL = t('command:help.musicCommands', { lng })
     const noAvailableL = t('command:help.noAvailable', { lng })
 
     const embeds = [
@@ -102,6 +146,51 @@ class Help extends Command {
       new EmbedBuilder()
         .setTitle(adminCmdL)
         .addFields(adminCmd)
+        .setTimestamp()
+        .setColor(Colors.DarkGreen),
+
+        new EmbedBuilder()
+        .setTitle(musicCmdL)
+        .addFields(musicCmd)
+        .setTimestamp()
+        .setColor(Colors.DarkGreen),
+
+      new EmbedBuilder()
+        .setTitle(cityCmdL)
+        .addFields(
+          cityCmd.length !== 0
+            ? cityCmd
+            : {
+                name: '⠀',
+                value: noAvailableL
+              }
+        )
+        .setTimestamp()
+        .setColor(Colors.DarkGreen),
+
+      new EmbedBuilder()
+        .setTitle(dvcCmdL)
+        .addFields(
+          dvcCmd.length !== 0
+            ? dvcCmd
+            : {
+                name: '⠀',
+                value: noAvailableL
+              }
+        )
+        .setTimestamp()
+        .setColor(Colors.DarkGreen),
+
+      new EmbedBuilder()
+        .setTitle(xpCmdL)
+        .addFields(
+          xpCmd.length !== 0
+            ? xpCmd
+            : {
+                name: '⠀',
+                value: noAvailableL
+              }
+        )
         .setTimestamp()
         .setColor(Colors.DarkGreen),
 

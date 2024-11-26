@@ -18,9 +18,13 @@
     "title_xp": "XP"
   },
   "help": {
-    "clientCommand": "Client Commands",
+    "clientCommands": "Client Commands",
     "adminCommands": "Admin Commands",
     "otherCommands": "Other Commands",
+    "cityCommands": "City Commands",
+    "dvcCommands": "Dynamic Voice Channel Commands",
+    "xpCommands": "XP Commands",
+    "musicCommands": "Music Commands",
     "noAvailable": "No commands available"
   },
   "ping": {
@@ -40,5 +44,19 @@
     "alreadySetUp": "Dynamic voice channel is already set up.",
     "disabled": "Dynamic voice channel system has been disabled and all related channels have been removed.",
     "noExist": "No dynamic voice channel system found to disable."
-  }
+  },
+  "work": {
+    "success": {
+      "positive": "You've worked and earned {{coins}} coins!",
+      "negative": "Unfortunate! You lost {{coins}} coins while working."
+    },
+    "cooldown": "You need to wait {{time}} before working again."
+  },
+  "workData": {
+      "nodata": "No data found. Start working to earn coins!",
+      "embedTitle": "{{username}}'s City information",
+      "displayName": "Display Name",
+      "coins": "Coins",
+      "workTimes": "Work Times"
+    }
 }
