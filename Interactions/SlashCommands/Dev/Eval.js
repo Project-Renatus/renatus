@@ -12,9 +12,9 @@ class Eval extends Command {
         .setName('eval')
         .setDescription('Eval a code.')
         .setDescriptionLocalizations({
-          'zh-TW': '執行代碼'
+          'zh-TW': '執行代碼',
+          'en-US': 'Eval a code.'
         })
-        .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption((option) =>
           option

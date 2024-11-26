@@ -1,15 +1,17 @@
 const Command = require('../../../Structures/Classes/BaseCommand')
 const { SlashCommandBuilder, Colors, EmbedBuilder } = require('discord.js')
 const { PaginationEmbed } = require('../../../Structures/Functions/index')
+const {t} = require('i18next')
 
 class Help extends Command {
   constructor(client, dir) {
     super(client, dir, {
       data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('help command')
+        .setDescription('Help command')
         .setDescriptionLocalizations({
-          'zh-TW': '幫助'
+          'zh-TW': '幫助',
+          'en-US': 'Help command'
         })
     })
   }
@@ -25,6 +27,8 @@ class Help extends Command {
     let infoCmd = []
     let othersCmd = []
 
+    let lng = interaction.locale
+
     const cmdPush = (category, subCmd, command) => {
       try {
         switch (category.category) {
@@ -33,7 +37,7 @@ class Help extends Command {
             else
               clientCmd.push({
                 name: `</${command.name}:${command.id}>`,
-                value: command.description,
+                value: command.descriptionLocalizations[lng],
                 inline: true
               })
             break
@@ -42,7 +46,7 @@ class Help extends Command {
             else
               adminCmd.push({
                 name: `</${command.name}:${command.id}>`,
-                value: command.description,
+                value: command.descriptionLocalizations[lng],
                 inline: true
               })
             break
@@ -51,7 +55,7 @@ class Help extends Command {
             else
               othersCmd.push({
                 name: `</${command.name}:${command.id}>`,
-                value: command.description,
+                value: command.descriptionLocalizations[lng],
                 inline: true
               })
             break
@@ -62,7 +66,7 @@ class Help extends Command {
     }
 
     await client.application.commands
-      .fetch()
+      .fetch({ withLocalizations: true })
       .then((commands) => {
         commands.forEach((command) => {
           let subCmd = []
@@ -70,7 +74,7 @@ class Help extends Command {
             if (option.type == 1) {
               subCmd.push({
                 name: `</${command.name + ' ' + option.name}:${command.id}>`,
-                value: option.description,
+                value: option.descriptionLocalizations[lng],
                 inline: true
               })
             }
@@ -82,27 +86,36 @@ class Help extends Command {
       .catch((err) => {
         console.error('Error fetching commands:', err)
       })
+
+    const clientCmdL = t('command:help.clientCommands', { lng })
+    const adminCmdL = t('command:help.adminCommands', { lng })
+    const othersCmdL = t('command:help.otherCommands', { lng })
+    const noAvailableL = t('command:help.noAvailable', { lng })
+
     const embeds = [
       new EmbedBuilder()
-        .setTitle('Client Commands')
+        .setTitle(clientCmdL)
         .addFields(clientCmd)
+        .setTimestamp()
         .setColor(Colors.DarkGreen),
 
       new EmbedBuilder()
-        .setTitle('Admin Commands')
+        .setTitle(adminCmdL)
         .addFields(adminCmd)
+        .setTimestamp()
         .setColor(Colors.DarkGreen),
 
       new EmbedBuilder()
-        .setTitle('Other Commands')
+        .setTitle(othersCmdL)
         .addFields(
           othersCmd.length !== 0
             ? othersCmd
             : {
                 name: '⠀',
-                value: 'No command available in this category.'
+                value: noAvailableL
               }
         )
+        .setTimestamp()
         .setColor(Colors.DarkGreen)
     ]
 

@@ -9,7 +9,8 @@ class Language extends Command {
         .setName('language')
         .setDescription('Set a language for this server.')
         .setDescriptionLocalizations({
-          'zh-TW': '設置此伺服器的語言'
+          'zh-TW': '設置此伺服器的語言',
+          'en-US': 'Set a language for this server.'
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
@@ -20,9 +21,7 @@ class Language extends Command {
             .setRequired(true)
             .addChoices([
               { name: 'English', value: 'en' },
-              { name: 'বাংলা', value: 'bn' },
-              { name: 'Brazilian Português', value: 'pt-br' },
-              { name: 'français', value: 'fr' }
+              { name: '中文', value: 'zh-TW' }
             ])
         )
     })
@@ -47,11 +46,9 @@ class Language extends Command {
         data:
           lng == 'en'
             ? 'English'
-            : lng == 'bn'
-              ? 'বাংলা'
-              : lng == 'fr'
-                ? 'français'
-                : 'Brazilian Português',
+            : lng == 'zh-TW'
+              ? '繁體中文'
+              : '',
         user: interaction.user.id
       })
     })

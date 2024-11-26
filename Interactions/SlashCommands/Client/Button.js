@@ -13,7 +13,8 @@ class Ping extends Command {
         .setName('button')
         .setDescription('Get the button.')
         .setDescriptionLocalizations({
-          'zh-TW': '獲取按鈕'
+          'zh-TW': '獲取按鈕',
+          'en-US': 'Get the button.'
         })
         .setDMPermission(false),
       options: {

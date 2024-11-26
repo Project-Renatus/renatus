@@ -17,7 +17,8 @@ class Reload extends Command {
         .setName('reload')
         .setDescription('Reload commands/events!')
         .setDescriptionLocalizations({
-          'zh-TW': '重新載入指令/事件'
+          'zh-TW': '重新載入指令/事件',
+          'en-US': 'Reload commands/events!'
         })
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)

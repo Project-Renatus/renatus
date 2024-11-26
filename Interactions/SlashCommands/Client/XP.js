@@ -1,6 +1,7 @@
 const Command = require('../../../Structures/Classes/BaseCommand');
 const { SlashCommandBuilder, EmbedBuilder, Colors } = require('discord.js');
 const UserXPData = require('../../../Schemas/Users/UserXPData');
+const {t} = require('i18next');
 
 class XP extends Command {
   constructor(client, dir) {
@@ -8,10 +9,18 @@ class XP extends Command {
       data: new SlashCommandBuilder()
         .setName('xp')
         .setDescription('Check your XP or another user\'s XP.')
+        .setDescriptionLocalizations({
+          'zh-TW': '檢查您的XP或其他用戶的XP。',
+          'en-US': 'Check your XP or another user\'s XP.'
+        })
         .addUserOption(option =>
           option
             .setName('user')
             .setDescription('The user to check.')
+            .setDescriptionLocalizations({
+              'zh-TW': '要檢查的用戶。',
+              'en-US': 'The user to check.'
+            })
             .setRequired(false)
         ),
     });
@@ -22,10 +31,10 @@ class XP extends Command {
    * @param {import("discord.js").ChatInputCommandInteraction} interaction 
    * @param {import("../../../Structures/Classes/BotClient").BotClient} client 
    */
-  async execute(interaction) {
+  async execute(interaction, client, lng) {
+
     const targetUser = interaction.options.getUser('user') || interaction.user;
 
-    // Fetch or initialize user XP data
     let userData = await UserXPData.findOne({ userId: targetUser.id, guildId: interaction.guild.id });
     if (!userData) {
       userData = new UserXPData({
@@ -37,12 +46,16 @@ class XP extends Command {
       await userData.save();
     }
 
-    // Calculate XP for next level
     const xpForNextLevel = 1000 * Math.pow(1.8, userData.level - 1);
     const progressPercentage = Math.round((userData.xp / xpForNextLevel) * 100);
-    const progressBarLength = 10; // Define the length of your progress bar
+    const progressBarLength = 10;
     const filledBar = '█'.repeat((progressPercentage / 10) | 0);
     const emptyBar = '─'.repeat(progressBarLength - filledBar.length);
+
+    const displayNameL = t('command:xp.displayname', { lng});
+    const levelL = t('command:xp.level', { lng });
+    const xpL = t('command:xp.xp', { lng });
+    const progressL = t('command:xp.progress', { lng });
 
     // Create the embed
     const embed = new EmbedBuilder()
@@ -50,14 +63,14 @@ class XP extends Command {
       .setColor(Colors.Blue)
       .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
       .addFields(
-        { name: 'Username', value: targetUser.username, inline: true },
-        { name: 'Display Name', value: interaction.guild.members.cache.get(targetUser.id)?.displayName || 'N/A', inline: true },
-        { name: 'Level', value: userData.level.toString(), inline: true },
-        { name: 'XP', value: `${userData.xp} / ${Math.round(xpForNextLevel)} XP`, inline: true },
-        { name: 'Progress', value: `${filledBar}${emptyBar} ${progressPercentage}%`, inline: false }
-      );
+        { name: displayNameL, value: interaction.guild.members.cache.get(targetUser.id)?.displayName || 'N/A', inline: true },
+        { name: levelL, value: userData.level.toString(), inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: xpL, value: `${userData.xp} / ${Math.round(xpForNextLevel)} XP`, inline: true },
+        { name: progressL, value: `${filledBar}${emptyBar} ${progressPercentage}%`, inline: false }
+      )
+      .setTimestamp()
 
-    // Respond with the embed
     await interaction.reply({ embeds: [embed] });
   }
 }

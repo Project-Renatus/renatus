@@ -9,9 +9,9 @@ class Ping extends Command {
         .setName('ping')
         .setDescription('To check bot ping!')
         .setDescriptionLocalizations({
-          'zh-TW': '檢查機器人延遲'
-        })
-        .setDMPermission(false),
+          'zh-TW': '檢查機器人延遲',
+          'en-US': 'To check bot ping!'
+        }),
       options: {
         //  devOnly: false,
       }
@@ -40,6 +40,7 @@ class Ping extends Command {
           uptime: parseInt(`${client.readyTimestamp / 1000}`)
         })
       )
+      .setTimestamp()
     interaction.editReply({ embeds: [embed], content: '' })
   }
 }

@@ -2,13 +2,34 @@
   "language": {
     "success": "Hey <@{{user}}>, I've successfully updated my language settings to {{data}}!"
   },
+  "xp": {
+    "username": "Username",
+    "displayname": "Display Name",
+    "level": "Level",
+    "xp": "XP",
+    "progress": "Progress"
+  },
+  "xpleaderboard": {
+    "server": "Server XP Leaderboard",
+    "servers": "All Server XP Leaderboard",
+    "nousers": "No users found in the leaderboard.",
+    "footer": "Showing top 20 highest XP users",
+    "unknownuser": "Unknown User",
+    "title_xp": "XP"
+  },
+  "help": {
+    "clientCommand": "Client Commands",
+    "adminCommands": "Admin Commands",
+    "otherCommands": "Other Commands",
+    "noAvailable": "No commands available"
+  },
   "ping": {
     "reply": "Pong! Hold on a moment while I check...",
     "embed": {
       "description": "**Here's my current response time:** `{{ping}}ms`\n\n> Discord's connection speed: `{{apiPing}}ms`\n> Bot's active time: <t:{{uptime}}:R>"
     }
   },
-  "voiceChannel": {
+  "dvc": {
     "category": {
       "create": "Dynamic Voice Channel"
     },
@@ -16,6 +37,8 @@
       "join": "Join to Create"
     },
     "setupComplete": "Dynamic voice channel setup complete!",
-    "alreadySetUp": "Dynamic voice channel is already set up."
+    "alreadySetUp": "Dynamic voice channel is already set up.",
+    "disabled": "Dynamic voice channel system has been disabled and all related channels have been removed.",
+    "noExist": "No dynamic voice channel system found to disable."
   }
 }

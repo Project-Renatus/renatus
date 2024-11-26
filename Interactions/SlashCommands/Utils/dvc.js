@@ -9,33 +9,36 @@ class DynamicVoiceChannel extends Command {
       data: new SlashCommandBuilder()
         .setName('dvc')
         .setDescription('Manage dynamic voice channels.')
+        .setDescriptionLocalizations({
+          'zh-TW': '管理動態語音頻道',
+          'en-US': 'Manage dynamic voice channels.'
+        })
         .addSubcommand((subcommand) =>
           subcommand
             .setName('create')
             .setDescription('Create a dynamic voice channel setup.')
+            .setDescriptionLocalizations({
+              'zh-TW': '建立動態語音頻道設置',
+              'en-US': 'Create a dynamic voice channel setup.'
+            })
         )
         .addSubcommand((subcommand) =>
           subcommand
             .setName('disable')
             .setDescription(
-              'Disable and delete the dynamic voice channel setup.'
+               'Disable and delete the dynamic voice channel setup.'
             )
-        ),
-      options: {
-        devOnly: false
-      }
+            .setDescriptionLocalizations({
+              'zh-TW': '停用並刪除動態語音頻道設置',
+              'en-US': 'Disable and delete the dynamic voice channel setup.'
+            })
+        )
     })
   }
 
-  async execute(interaction, client) {
+  async execute(interaction, client, lng) {
     const subcommand = interaction.options.getSubcommand()
     const guild = interaction.guild
-
-    // Fetch the server's language from the database
-    const languageData = await client.db.languageDatas.findOne({
-      guildId: guild.id
-    })
-    const lng = languageData ? languageData.lng : 'en'
 
     try {
       if (subcommand === 'create') {
@@ -45,10 +48,10 @@ class DynamicVoiceChannel extends Command {
         })
 
         if (!existingChannel) {
-          const categoryName = t('command:voiceChannel.category.create', {
+          const categoryName = t('command:dvc.category.create', {
             lng
           })
-          const channelName = t('command:voiceChannel.channel.join', { lng })
+          const channelName = t('command:dvc.channel.join', { lng })
 
           // Create the category
           const category = await guild.channels.create({
@@ -72,12 +75,12 @@ class DynamicVoiceChannel extends Command {
           }).save()
 
           interaction.reply({
-            content: t('command:voiceChannel.setupComplete', { lng }),
+            content: t('command:dvc.setupComplete', { lng }),
             ephemeral: true
           })
         } else {
           interaction.reply({
-            content: t('command:voiceChannel.alreadySetUp', { lng }),
+            content: t('command:dvc.alreadySetUp', { lng }),
             ephemeral: true
           })
         }
@@ -105,12 +108,12 @@ class DynamicVoiceChannel extends Command {
 
           interaction.reply({
             content:
-              'Dynamic voice channel system has been disabled and all related channels have been removed.',
+              t('command:dvc.disabled', { lng }),
             ephemeral: true
           })
         } else {
           interaction.reply({
-            content: 'No dynamic voice channel system found to disable.',
+            content: t('command:dvc.noExist', { lng }),
             ephemeral: true
           })
         }
