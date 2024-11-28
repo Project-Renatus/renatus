@@ -58,5 +58,34 @@
       "displayName": "Display Name",
       "coins": "Coins",
       "workTimes": "Work Times"
+    },
+    "rps": {
+      "bot": {
+        "prompt": "Choose: Rock, Paper, or Scissors to play against the bot.",
+        "embed": {
+          "title": "RPS Challenge Result",
+          "win": "You won against the bot! Your {{userChoice}} beats the bot's {{botChoice}}.",
+          "lose": "You lost to the bot. The bot's {{botChoice}} beats your {{userChoice}}.",
+          "draw": "It's a draw! Both you and the bot chose {{choice}}."
+        }
+      },
+      "embed": {
+        "title": "RPS Challenge Result",
+        "coins": "Coins",
+        "xp": "XP",
+        "totalXp": "Total XP",
+        "winner": "{{winnerTag}} **wins** against {{loserTag}}!",
+        "loser": "{{loserTag}} **loses** to {{winnerTag}}.",
+        "footer": "Player: {{username}}"
+      },
+      "selfChallenge": "You cannot challenge yourself!",
+      "alreadyInGame": "You or your opponent is already in a game.",
+      "invitationSent": "Invitation sent to {{opponentTag}}.",
+      "noInvitation": "You have no pending invitations.",
+      "notYourInvitation": "This invitation is not intended for you.",
+      "accepted": "You **accepted** the invitation. Choose: Rock, Paper, or Scissors against {{opponentTag}}.",
+      "draw": "It's a **draw**! Both chose {{choice}}.",
+      "winner": "{{winnerTag}} **wins** against {{loserTag}} and gains {{xpGained}} XP!",
+      "rejected": "You **rejected** the game invitation from {{opponentTag}}."
     }
 }

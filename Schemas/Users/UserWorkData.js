@@ -5,7 +5,8 @@ const userWorkDataSchema = new mongoose.Schema({
   coins: { type: Number, default: 0 },
   lastWorked: { type: Date, default: () => Date.now() - 1000 * 60 * 16 },
   lastAmount: { type: Number, default: 0 },
-  workTimes: { type: Number, default: 0 }
+  workTimes: { type: Number, default: 0 },
+  winStreak: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('UserWorkData', userWorkDataSchema);
